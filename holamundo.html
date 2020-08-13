@@ -1,46 +1,118 @@
 <html>
-    <head>
-        <title>Hola</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    </head>
-    
-    <body>
 
-        <h1>Enunciado</h1>
-        <h3>
-            Crear un input de tipo texto de Nombre<br>
-            Crear un input de tipo texto de Apellido<br>
-            Crear un boton que salude diciendo "Hola {Nombre}, tu apellido es {Apellido} "<br>
-            Crear un boton que Blanquee los dos campos de texto
-        </h3>
-        <hr>
+<head>
+    <title>Hola</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
 
-        <input type="text" 
-        id="txtMensaje" >
+<body>
 
-        <input type="button" 
-               id="btnHola" 
-               value="Decir Hola!"
-               onclick="Saludar()"
-               />
+    <h1>Enunciado</h1>
+    <!-- <h4>
+        Crear un input de tipo texto de Nombre<br>
+        Crear un input de tipo texto de Apellido<br>
+        Crear un boton que salude diciendo "Hola {Nombre}, tu apellido es {Apellido} "<br>
+        Crear un boton que Blanquee los dos campos de texto
+    </h4> -->
+    <hr>
 
-        <input type="button" 
-               id="btnChau" 
-               value="Decir Chau!" 
-               onclick="alert('Chau!')"
-               />
-    
-<script>
-     function Saludar()
-     {
-        let mensaje = 'esto es un string';
-        mensaje = document.getElementById('txtMensaje').value;
-        alert(mensaje);
-     }
+    <input type="text" id="txtMensaje">
 
-</script>
-            </body>
+    <input type="button" id="btnHola" value="Decir Hola!" onclick="Saludar()" />
+
+    <input type="button" id="btnChau" value="Decir Chau!" onclick="alert('Chau!')" />
+    <hr>
+
+    <table class="table table-bordered">
+        <tr>
+            <td>
+                Nombre
+            </td>
+            <td>
+                <input type="text" id="txtNombre">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Apellido
+            </td>
+            <td>
+                <input type="text" id="txtApellido">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" style="width: 100;" id="btnMensaje" value="Mensaje" onclick="MensajeCompleto()">
+            </td>
+            <td>
+                <input type="button" value="Limpiar" onclick="Limpiar()">
+            </td>
+
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button id="btnOcular" onclick="Ocultar()" type="button" class="btn btn-danger" >
+                    Oculatar</button>
+
+            </td>
+        </tr>
+    </table>
+
+    <!-- Cesana Bruno
+De Basualdo Emilse Andrea para todos:  07:52 PM
+De Dalotta Luciano Federico para todos:  07:52 PM
+De Dascanio Nicolas Gino para todos:  07:52 PM
+De Nicola Lucas
+De Federico Perchuk para todos:  07:52 PM
+De Fleire Ezequiel para todos:  07:52 PM
+De Guillemi Damian Santiago para todos:  07:52 PM
+De Laino German Jose para todos:  07:53 PM
+De Lopardo Grana Ghitia Fernando para todos:  07:52 PM
+De Mango Ignacio para todos:  07:52 PM
+De Orue Andres Pablo para todos:  07:52 PM
+De Pezzutti Federico para todos:  07:52 PM
+De Pulvirenti Antonella para todos:  07:53 PM
+De Sierra Matias para todos:  07:52 PM
+De Testa Santiago para todos:  07:52 PM
+De Vallejo Lisandro Ramiro para todos:  07:52 PM
+De Villalba Lucas Elal para todos:  07:52 PM -->
+
+
+
+
+    <script>
+
+        let nombreDefault = 'S/N';
+
+        function Saludar() {
+            let mensaje = 'esto es un string';
+            mensaje = document.getElementById('txtMensaje').value;
+            alert(mensaje);
+        }
+        function MensajeCompleto()
+        {
+            let nombre_valor = document.getElementById('txtNombre').value;
+            let app_valor = document.getElementById('txtApellido').value;
+
+            alert("Hola" + nombre_valor + ", tu apellido es " + app_valor);
+        }
+        function Limpiar(){
+            let txtNombre = document.getElementById('txtNombre');
+            let txtApellido = document.getElementById('txtApellido');
+            txtNombre.value = nombreDefault;
+            txtApellido.value = '';
+        }
+        
+        let ancho = 100;
+        function Ocultar(){
+            ancho = ancho + 50;
+            document.getElementById('btnMensaje').style.width = ancho;
+
+        }
+
+    </script>
+</body>
 
 
 </html>
-
