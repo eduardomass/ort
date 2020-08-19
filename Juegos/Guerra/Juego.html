@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
+
+    <title>Hello, world!</title>
+    <style>
+        .stamina
+        {
+            color:red;
+            font-weight: bolder;
+            font-size: 50px;
+        }
+        input
+        {
+            font-size: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        Stamina Juador 1: 
+        <label id="lblStamina1" 
+        class="stamina" >100</label>
+    </div>
+
+    <div>
+        Stamina Juador 2: <label id="lblStamina2"  class="stamina">100</label>
+    </div>
+
+    <div id="divBtnAtaque">
+        <input type="button" id="btnAtaque" onclick="Atacar()" value="Atacar!">
+    </div>
+    <div>
+        <input type="button" id="btnCurar" onclick="Curar()" value="Curar!">
+    </div>
+    <div>
+        <label id="lblTuno">Turno de Jugador Uno</label>
+        <label style="display: none;">Turno de Jugador Dos</label>
+    </div>
+
+    <script>
+        let stamina1 = 100;
+        let stamina2 = 100;
+
+        function Atacar()
+        {
+            let lblStamina1 = document.getElementById('lblStamina1');
+            let ataque = Math.floor(Math.random() * 5) + 5;
+            stamina1 = stamina1 - ataque;
+            lblStamina1.innerHTML = stamina1;
+            // lblStamina1.innerHTML = 'hola que tal??';
+            // alert(document.getElementById('divBtnAtaque').innerHTML);
+            // alert('toco atacar!' + stamina1);
+        }
+        function Curar()
+        {
+            // Curar entre 1 y 15 a jugador 1!!
+            alert('toco curar!');
+        }
+    </script>
+
+</body>
+</html>
