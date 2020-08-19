@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+
+<body>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <button type="button" onclick="Iniciar()" class="btn btn-primary">Iniciar!!!</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <label id="porcentaje1" >100%</label>
+                </div>
+                <div class="row" id="row1">
+                    <button type="button" onclick="Atacar()" class="btn btn-primary">Atacar</button>
+                    <button type="button" onclick="Curar()" class="btn btn-primary">Curar</button>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <label id="porcentaje2" >100%</label>
+                </div>
+                <div class="row" id="row2">
+                    <button type="button" onclick="Atacar()" class="btn btn-primary">Atacar</button>
+                    <button type="button" onclick="Curar()" class="btn btn-primary">Curar</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let turno = 1;
+        let staminas = [100, 100];
+        function Iniciar()
+        {
+            turno = 1;
+            staminas = [100, 100];
+            
+            ActivarDesactivar();
+}
+        } 
+        function ActivarDesactivar()
+        {
+
+            var nodes1 = document.getElementById("row1").getElementsByTagName('*');
+            var nodes2 = document.getElementById("row2").getElementsByTagName('*');
+            for(var i = 0; i < nodes1.length; i++){
+                nodes[i].disabled = turno == 1;
+            for(var i = 0; i < nodes2.length; i++){
+                nodes[i].disabled = turno == 2;
+        }
+        function Atacar()
+        {
+            let fuerza = Math.floor(Math.random() * 5) + 5; 
+            staminas[JugadorAQuienSeAtaca()-1] -= fuerza;
+            ActutalizarInformacionGrafica();
+            CambiarTurno();
+        }
+        function Curar()
+        {
+            let fuerza = Math.floor(Math.random() * 20) + 1; 
+            staminas[JugadorAQuienSeAtaca()-1] += fuerza;
+            ActutalizarInformacionGrafica();
+            CambiarTurno();
+        }
+        function JugadorAQuienSeAtaca()
+        {
+            if(turno === 1)
+                return 2;
+            return 1;
+        }
+        function CambiarTurno()
+        {
+            turno = JugadorAQuienSeAtaca();
+        }
+        function ActutalizarInformacionGrafica()
+        {
+            if (staminas[0] > 100)
+                staminas[0] = 100;
+            if (staminas[1] > 100)
+                staminas[1] = 100;
+            let p1 = document.getElementById('porcentaje1');
+            let p2 = document.getElementById('porcentaje2');
+            p1.innerHTML = staminas[0] +  "%";
+            p2.innerHTML = staminas[1] +  "%";
+        }
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

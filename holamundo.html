@@ -52,9 +52,21 @@
         </tr>
         <tr>
             <td colspan="2">
-                <button id="btnOcular" onclick="Ocultar()" type="button" class="btn btn-danger" >
-                    Oculatar</button>
+                <button id="btnAgrandar" onclick="AgrandarAncho()" type="button" class="btn btn-danger" >
+                    Agrandar</button>
 
+                <button id="btnAchicar" onclick="AchicarAncho()" 
+                type="button" class="btn btn-danger" >
+                    Achicar</button>
+
+
+                    <button id="btnMasAlto" onclick="AgrandarAlto()" type="button" class="btn btn-danger" >
+                        Mas Alto</button>
+    
+                    <button id="btnMasBajo" onclick="AchicarAlto()" 
+                    type="button" class="btn btn-danger" >
+                        Mas Bajo</button>
+    
             </td>
         </tr>
     </table>
@@ -105,11 +117,24 @@ De Villalba Lucas Elal para todos:  07:52 PM -->
         }
         
         let ancho = 100;
-        function Ocultar(){
+        let alto = 50;
+        function AgrandarAncho(){
             ancho = ancho + 50;
             document.getElementById('btnMensaje').style.width = ancho;
 
         }
+        function AchicarAncho(){
+            ancho = ancho - 50;
+            document.getElementById('btnMensaje').style.width = ancho;
+
+        }
+
+        function AgrandarAlto(){
+            alto = alto + 20;
+            document.getElementById('btnMensaje').style.height = alto;
+
+        }
+        
 
     </script>
 </body>
