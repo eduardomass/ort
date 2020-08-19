@@ -44,28 +44,56 @@
         <input type="button" id="btnCurar" onclick="Curar()" value="Curar!">
     </div>
     <div>
-        <label id="lblTuno">Turno de Jugador Uno</label>
-        <label style="display: none;">Turno de Jugador Dos</label>
+        <label id="lblTurnoUno">Turno de Jugador Uno</label>
+        <label id="lblTurnoDos" style="display: none;">Turno de Jugador Dos</label>
     </div>
 
     <script>
         let stamina1 = 100;
         let stamina2 = 100;
+        let turno = 1;
 
+        function CambiarValorTurno()
+        {
+            if (turno == 1)
+                turno = 2;
+            else
+                turno = 1;
+        }
+        function CambiarLabelTurno()
+        {
+            document.getElementById('lblTurnoUno').style.display = 'none';
+            document.getElementById('lblTurnoDos').style.display = 'none';
+            console.log('Turno : ' + turno);
+            if (turno == 1)
+                document.getElementById('lblTurnoUno').style.display = '';
+            else
+                document.getElementById('lblTurnoDos').style.display = '';
+        }
         function Atacar()
         {
             let lblStamina1 = document.getElementById('lblStamina1');
             let ataque = Math.floor(Math.random() * 5) + 5;
             stamina1 = stamina1 - ataque;
             lblStamina1.innerHTML = stamina1;
-            // lblStamina1.innerHTML = 'hola que tal??';
-            // alert(document.getElementById('divBtnAtaque').innerHTML);
-            // alert('toco atacar!' + stamina1);
+            
+            CambiarTurno();
+
+        }
+        function CambiarTurno()
+        {
+            CambiarValorTurno();
+            CambiarLabelTurno();
         }
         function Curar()
         {
-            // Curar entre 1 y 15 a jugador 1!!
-            alert('toco curar!');
+            let lblStamina1 = document.getElementById('lblStamina1');
+            let ataque = Math.floor(Math.random() * 15) + 1;
+            stamina1 = stamina1 + ataque;
+            lblStamina1.innerHTML = stamina1;
+
+            CambiarTurno();
+
         }
     </script>
 
