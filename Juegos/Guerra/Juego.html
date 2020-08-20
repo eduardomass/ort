@@ -44,6 +44,9 @@
         <input type="button" id="btnCurar" onclick="Curar()" value="Curar!">
     </div>
     <div>
+        <input type="button" id="btnIniciar" onclick="Iniciar()" value="Iniciar!">
+    </div>
+    <div>
         <label id="lblTurnoUno">Turno de Jugador Uno</label>
         <label id="lblTurnoDos" style="display: none;">Turno de Jugador Dos</label>
     </div>
@@ -51,7 +54,7 @@
     <script>
         let stamina1 = 100;
         let stamina2 = 100;
-        let staminas = [100, 100];
+        // let staminas = [100, 100];
         let turno = 1;
         let aQuienAtaco = 2;
 
@@ -68,6 +71,16 @@
                 aQuienAtaco = 2;
             }
         }
+        function Iniciar()
+        {
+            stamina1 = 100;
+            stamina2 = 100;
+            turno = 1;
+            aQuienAtaco = 2;
+            document.getElementById('btnAtaque').disabled = false;
+            document.getElementById('btnCurar').disabled = false;
+            SetearLabelsStamina();
+        }
         function CambiarLabelTurno()
         {
             document.getElementById('lblTurnoUno').style.display = 'none';
@@ -77,23 +90,39 @@
             else
                 document.getElementById('lblTurnoDos').style.display = '';
         }
+        function SetearLabelsStamina()
+        {
+            let lblStamina1 = document.getElementById('lblStamina' + 1);
+            let lblStamina2 = document.getElementById('lblStamina' + 2);
+            if (stamina1 > 100)
+                stamina1 = 100;
+            if (stamina2 > 100)
+                stamina2 = 100;
+            lblStamina1.innerHTML = stamina1;
+            lblStamina2.innerHTML = stamina2;
+            CambiarLabelTurno();
+        }
         function Atacar()
         {
             let ataque = Math.floor(Math.random() * 5) + 5;
-            let lblStamina = document.getElementById('lblStamina' + aQuienAtaco);
+            // let lblStamina = document.getElementById('lblStamina' + aQuienAtaco);
+            // let lblStamina1 = document.getElementById('lblStamina' + 1);
+            // let lblStamina2 = document.getElementById('lblStamina' + 2);
             // staminas[turno-1] = staminas[turno-1] - ataque;
             // lblStamina.innerHTML = staminas[turno-1];
             if (turno == 1)
             {
                  stamina2 = stamina2 - ataque;
-                 lblStamina.innerHTML = stamina2;
+                //  lblStamina.innerHTML = stamina2;
+                // lblStamina2.innerHTML = stamina2;
             }
             else
             {
                  stamina1 = stamina1 - ataque;
-                 lblStamina.innerHTML = stamina1;
+                //  lblStamina.innerHTML = stamina1;
+                // lblStamina1.innerHTML = stamina1;
             }
-            
+            SetearLabelsStamina();
             CambiarTurno();
 
             
@@ -102,33 +131,59 @@
         function AtacarCurar()
         {
             let ataque = Math.floor(Math.random() * 5) + 5;
-            let lblStamina = document.getElementById('lblStamina' + aQuienAtaco);
-            staminas[turno-1] = staminas[turno-1] - ataque;
-            lblStamina.innerHTML = staminas[turno-1];
+            if (turno == 1)
+                stamina1 += ataque;
+            else
+                stamina2 += ataque;
+            SetearLabelsStamina();
+            // let lblStamina = document.getElementById('lblStamina' + aQuienAtaco);
+            // staminas[turno-1] = staminas[turno-1] - ataque;
+            // lblStamina.innerHTML = staminas[turno-1];
 
-            staminas[turno] = staminas[turno] + ataque;
-            lblStamina.innerHTML = staminas[turno];
+            // staminas[turno] = staminas[turno] + ataque;
+            // lblStamina.innerHTML = staminas[turno];
         }
 
         function CambiarTurno()
         {
-            CambiarValorTurno();
-            CambiarLabelTurno();
+            let ganoAlguien = ValidarGanador();
+            if (ganoAlguien)
+            {
+                alert('Gano el jugador ' + turno+  ' !!');
+                document.getElementById('btnAtaque').disabled = true;
+                document.getElementById('btnCurar').disabled = true;
+            }
+            else{
+                CambiarValorTurno();
+                CambiarLabelTurno();
+            }
+        }
+        function ValidarGanador()
+        {
+            if (stamina1 <= 0 || stamina2 <=0)
+                return true;
+            return false;
         }
         function Curar()
         {
-            let lblStamina = document.getElementById('lblStamina' + turno);
+            // let lblStamina = document.getElementById('lblStamina' + turno);
+            // let ataque = Math.floor(Math.random() * 15) + 1;
+            // if (turno == 1)
+            // {
+            //     stamina1 = stamina1 + ataque;
+            //     lblStamina.innerHTML = stamina1;
+            // }
+            // else
+            // {
+            //     stamina2 = stamina2 + ataque;
+            //     lblStamina.innerHTML = stamina2;
+            // }
             let ataque = Math.floor(Math.random() * 15) + 1;
             if (turno == 1)
-            {
-                stamina1 = stamina1 + ataque;
-                lblStamina.innerHTML = stamina1;
-            }
+                stamina1 += ataque;
             else
-            {
-                stamina2 = stamina2 + ataque;
-                lblStamina.innerHTML = stamina2;
-            }
+                stamina2 += ataque;
+            SetearLabelsStamina();
             
 
             CambiarTurno();
