@@ -18,6 +18,11 @@
             font-weight: bolder;
             font-size: 50px;
         }
+        body{
+            color: black;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: xx-large ;
+        }
         input
         {
             font-size: 25px;
@@ -25,8 +30,7 @@
     </style>
 </head>
 
-<body>
-
+<body id="body">
     <div>
         Stamina Juador 1: 
         <label id="lblStamina1" 
@@ -44,6 +48,9 @@
         <input type="button" id="btnCurar" onclick="Curar()" value="Curar!">
     </div>
     <div>
+        <input type="button" id="btnSwap" onclick="Swap()" value="Swap!">
+    </div>
+    <div>
         <input type="button" id="btnIniciar" onclick="Iniciar()" value="Iniciar!">
     </div>
     <div>
@@ -54,10 +61,30 @@
     <script>
         let stamina1 = 100;
         let stamina2 = 100;
+        let swap1 = true;
+        let swap2 = true;
         // let staminas = [100, 100];
         let turno = 1;
         let aQuienAtaco = 2;
-
+        function Swap()
+        {
+            let aux = stamina1;
+            stamina1 = stamina2;
+            stamina2 = aux;
+            DesactivarPosibilidadDeSwap();
+            
+            CambiarTurno();
+            SetearLabelsStamina();
+        }
+        /// Esto lo que hace es que cuado toca swap va a 
+        /// deshabilitar la posibilidad de volver a tocar
+        function DesactivarPosibilidadDeSwap()
+        {
+            if (turno == 1)
+                swap1 = false;
+            if (turno == 2)
+                swap2 = false;
+        }
         function CambiarValorTurno()
         {
             if (turno == 1)
@@ -77,12 +104,19 @@
             stamina2 = 100;
             turno = 1;
             aQuienAtaco = 2;
+            swap1 = true;
+            swap2 = true;
             document.getElementById('btnAtaque').disabled = false;
             document.getElementById('btnCurar').disabled = false;
             SetearLabelsStamina();
+            ActualiazarGrafica();
         }
         function CambiarLabelTurno()
         {
+            let esTurno1 = turno == 1;
+            let swapActivo = (esTurno1 && swap1) || (!esTurno1 && swap2);
+            document.getElementById('btnSwap').disabled = !swapActivo;
+
             document.getElementById('lblTurnoUno').style.display = 'none';
             document.getElementById('lblTurnoDos').style.display = 'none';
             if (turno == 1)
@@ -100,33 +134,19 @@
                 stamina2 = 100;
             lblStamina1.innerHTML = stamina1;
             lblStamina2.innerHTML = stamina2;
+
             CambiarLabelTurno();
         }
         function Atacar()
         {
-            let ataque = Math.floor(Math.random() * 5) + 5;
-            // let lblStamina = document.getElementById('lblStamina' + aQuienAtaco);
-            // let lblStamina1 = document.getElementById('lblStamina' + 1);
-            // let lblStamina2 = document.getElementById('lblStamina' + 2);
-            // staminas[turno-1] = staminas[turno-1] - ataque;
-            // lblStamina.innerHTML = staminas[turno-1];
+            let ataque = Math.floor(Math.random() * 12) + 3;
             if (turno == 1)
-            {
                  stamina2 = stamina2 - ataque;
-                //  lblStamina.innerHTML = stamina2;
-                // lblStamina2.innerHTML = stamina2;
-            }
             else
-            {
                  stamina1 = stamina1 - ataque;
-                //  lblStamina.innerHTML = stamina1;
-                // lblStamina1.innerHTML = stamina1;
-            }
-            SetearLabelsStamina();
+            debugger;
             CambiarTurno();
-
-            
-
+            SetearLabelsStamina();
         }
         function AtacarCurar()
         {
@@ -143,7 +163,6 @@
             // staminas[turno] = staminas[turno] + ataque;
             // lblStamina.innerHTML = staminas[turno];
         }
-
         function CambiarTurno()
         {
             let ganoAlguien = ValidarGanador();
@@ -154,9 +173,30 @@
                 document.getElementById('btnCurar').disabled = true;
             }
             else{
+                ActualiazarGrafica();
                 CambiarValorTurno();
                 CambiarLabelTurno();
+                if (turno == 2)
+                {
+                    let tengoMasStamina = stamina1 < stamina2;
+                    let noVoyAPerder = stamina2 > 15;
+                    if (tengoMasStamina)
+                        Atacar();
+                    else if (noVoyAPerder)
+                        Atacar();
+                    else
+                        Curar();
+                }
             }
+            
+        }
+        function ActualiazarGrafica()
+        {
+            let cuerpo = document.getElementById('body')
+                if (turno == 1)
+                    cuerpo.style.backgroundColor = 'yellow';
+                else
+                    cuerpo.style.backgroundColor = 'blue';
         }
         function ValidarGanador()
         {
@@ -178,7 +218,7 @@
             //     stamina2 = stamina2 + ataque;
             //     lblStamina.innerHTML = stamina2;
             // }
-            let ataque = Math.floor(Math.random() * 15) + 1;
+            let ataque = Math.floor(Math.random() * 7) + 3;
             if (turno == 1)
                 stamina1 += ataque;
             else

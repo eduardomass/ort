@@ -1,0 +1,26 @@
+<html>
+    <body>
+        
+
+        <input type="button" value="Sumar" onclick="agregar()" />
+    </body>
+
+    <script>
+        let _global = 0;
+
+        function agregar()
+        {
+            let _local = 0;
+            _global++;
+            _local++;
+            console.log('Global : ' + _global);
+            console.log('Local : ' + _local);
+            mostrar();
+        }
+        function mostrar()
+        {
+            alert(_global);
+        }
+
+    </script>
+</html>
