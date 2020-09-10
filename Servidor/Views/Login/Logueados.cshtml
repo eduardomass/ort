@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Logueados";
+}
+
+<h2>Logueados</h2>
+
+aca vamos a mostrar de una manera magica quien se logeo y luego quien esta logueado
+
+<hr />
+Bienvenido : @ViewBag.Usuario
+<hr />
+@foreach (string usuario in ViewBag.Usuarios)
+{
+    @usuario
+    <br />
+}
+
