@@ -8,11 +8,18 @@
 aca vamos a mostrar de una manera magica quien se logeo y luego quien esta logueado
 
 <hr />
-Bienvenido : @ViewBag.Usuario
+Bienvenido : @ViewBag.UsuarioLogueador.Nombre
 <hr />
-@foreach (string usuario in ViewBag.Usuarios)
+Lista de Mensajes <br />
+@foreach (var mensaje in @ViewBag.UsuarioLogueador.Mensajes)
 {
-    @usuario
+    @mensaje
+    <br />
+}
+<hr />
+@foreach (Servidor.Models.Usuario usuario in ViewBag.Usuarios)
+{
+    @usuario.Nombre
     <br />
 }
 

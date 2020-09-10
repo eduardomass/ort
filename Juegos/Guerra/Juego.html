@@ -121,6 +121,14 @@
         function CambiarLabelTurno()
         {
             let esTurno1 = turno == 1;
+			
+			let DesactivarBotonSuperAtaque = (esTurno1 && (superAtaqueCount1 > 1)) || (!esTurno1 && (superAtaqueCount2>1));
+			let tieneSuperAtaque1 = superAtaqueCount1 < 2;
+			let tieneSuperAtaque2 = superAtaqueCount2 < 2;
+			
+			let botonAtaqueTieneQueEstarActivo = (esTurno1 && tieneSuperAtaque1) || (!esTurno1 && tieneSuperAtaque2);
+			document.getElementById('btnSuperAtaque').disabled = !botonAtaqueTieneQueEstarActivo;
+
             let swapActivo = (esTurno1 && swap1) || (!esTurno1 && swap2);
             document.getElementById('btnSwap').disabled = !swapActivo;
 

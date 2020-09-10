@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Servidor.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Servidor.Controllers
 
     public class LoginController : Controller
     {
-        public static List<string> lista = new List<string>();
+        public static List<Usuario> lista = new List<Usuario>();
 
         // GET: Login
         public ActionResult Index()
@@ -19,11 +20,11 @@ namespace Servidor.Controllers
         }
         public ActionResult Login(string Nombre)
         {
-            //ViewBag
-            //ViewData
-            LoginController.lista.Add(Nombre);
-            //return View("Logueados");
-            ViewBag.Usuario = Nombre;
+            Usuario usuarioNuevo = new Usuario();
+            usuarioNuevo.Nombre = Nombre;
+            usuarioNuevo.Mensajes.Add("Esto es una preba! para " + Nombre);
+            LoginController.lista.Add(usuarioNuevo);
+            Session["UsuarioLogueado"] = usuarioNuevo;
             return RedirectToAction("Logueados");
         }
         public ActionResult Logueados()
@@ -31,6 +32,7 @@ namespace Servidor.Controllers
             //ViewBag
             //ViewData
             
+            ViewBag.UsuarioLogueador = Session["UsuarioLogueado"];
             ViewBag.Usuarios = LoginController.lista;
             return View();
         }

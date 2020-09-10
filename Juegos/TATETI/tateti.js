@@ -1,3 +1,9 @@
+$.get("https://localhost:44360/Servidor/HolaMundo", function (data, status) {
+    alert("Data: " + data + "\nStatus: " + status);
+});
+
+
+
 let turno = 'X';
 const vacio = '?';
 function PonerXoY(boton) {
