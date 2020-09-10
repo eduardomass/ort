@@ -17,9 +17,14 @@ Lista de Mensajes <br />
     <br />
 }
 <hr />
-@foreach (Servidor.Models.Usuario usuario in ViewBag.Usuarios)
-{
-    @usuario.Nombre
-    <br />
-}
-
+<form action="EnviarMensaje" method="get">
+    <label>Mensaje : </label><br />
+    <input type="text" id="txtMensaje" name="Mensaje" />
+    <select id="ddlUsuarios" name="UsuarioSeleccionado">
+        @foreach (Servidor.Models.Usuario usuario in ViewBag.Usuarios)
+        {
+            <option id="@usuario.Nombre" value="@usuario.Nombre">@usuario.Nombre</option>
+        }
+    </select>
+    <input type="submit" value="Enviar Mensaje" />
+</form>

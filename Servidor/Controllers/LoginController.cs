@@ -36,5 +36,15 @@ namespace Servidor.Controllers
             ViewBag.Usuarios = LoginController.lista;
             return View();
         }
+
+        public ActionResult EnviarMensaje(string Mensaje, string UsuarioSeleccionado)
+        {
+            var usuaarioAQuienMandoMensaje = 
+                LoginController.lista.Where(o => o.Nombre == UsuarioSeleccionado).FirstOrDefault();
+
+            usuaarioAQuienMandoMensaje.Mensajes.Add(Mensaje);
+
+            return RedirectToAction("Logueados");
+        }
     }
 }
