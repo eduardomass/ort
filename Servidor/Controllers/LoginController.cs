@@ -42,8 +42,15 @@ namespace Servidor.Controllers
             var usuaarioAQuienMandoMensaje = 
                 LoginController.lista.Where(o => o.Nombre == UsuarioSeleccionado).FirstOrDefault();
 
-            usuaarioAQuienMandoMensaje.Mensajes.Add(Mensaje);
+            foreach (Usuario usuario in LoginController.lista)
+            {
+                if (usuario.Nombre == UsuarioSeleccionado)
+                {
+                }
+            }
 
+            usuaarioAQuienMandoMensaje.Mensajes.Add(Mensaje);
+            
             return RedirectToAction("Logueados");
         }
     }

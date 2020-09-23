@@ -13,6 +13,48 @@ namespace Servidor
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            Reglas.RNUsuario.AgregarUsaurio(new Entidades.Usuario()
+                {
+                Activo = true,
+                Password = "123",
+                NombreUsuario = "USUARIO",
+                Nombre = "Eduardo",
+                Apellido = "Mass"
+            }
+                );
+
+            Reglas.RNUsuario.AgregarUsaurio(new Entidades.Usuario()
+            {
+                Activo = true,
+                Password = "456",
+                NombreUsuario = "Carlos",
+                Nombre = "Carlos",
+                Apellido = "Tomada"
+            }
+                );
+
+
+            Reglas.RNUsuario.AgregarUsaurio(new Entidades.Usuario()
+            {
+                Activo = true,
+                Password = "Pepe",
+                NombreUsuario = "Pepe",
+                Nombre = "Pepe",
+                Apellido = "Pepe"
+            }
+                );
+
+            Reglas.RNUsuario.AgregarUsaurio(new Entidades.Usuario()
+            {
+                Activo = true,
+                Password = "Pepe",
+                NombreUsuario = "Pepe",
+                Nombre = "Pepe",
+                Apellido = "Pepe"
+            }
+               );
+
         }
     }
 }
