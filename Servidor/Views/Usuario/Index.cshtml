@@ -1,17 +1,59 @@
-﻿
+﻿@model IEnumerable<Servidor.Entidades.Usuario>
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Listado Usuarios ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Log In</h2>
+<h2>Lista de Usaurios de mi aplicacion</h2>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apellido)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.NombreUsuario)*@
+            Nombre Usuario
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Activo)
+        </th>
+        <th></th>
+    </tr>
 
-<form method="post">
-    Usuario : <input type="text" name="Nombre" /><br />
-    Password : <input type="password" name="Password" /><br />
-    <input type="submit" value="Submit" />
-    <hr />
-    @ViewBag.Error
-    <hr />
-</form>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apellido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreUsuario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Activo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

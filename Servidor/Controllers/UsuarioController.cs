@@ -1,4 +1,4 @@
-﻿using Servidor.Models;
+﻿using Servidor.Entidades;
 using Servidor.Reglas;
 using System;
 using System.Collections.Generic;
@@ -13,28 +13,82 @@ namespace Servidor.Controllers
         // GET: Usuario
         public ActionResult Index()
         {
+            return View(RNUsuario.Buscar());
+        }
+        // GET: Usuario/Details/5
+        public ActionResult Details(int id)
+        {
             return View();
         }
-        [HttpPost]
-        public ActionResult Index(UsuarioLogin usuario)
+
+        // GET: Usuario/Create
+        public ActionResult Create()
         {
-            var usuarioLogueado = RNUsuario.ObtenerUsuarioActivo(usuario.Nombre, usuario.Password);
-            if (usuarioLogueado == null)
+            return View();
+        }
+
+        // POST: Usuario/Create
+        [HttpPost]
+        public ActionResult Create(Usuario usuario)
+        {
+            try
             {
-                ViewBag.Error = "Usaurio Incorrecto";
+                // TODO: Add insert logic here
+                RNUsuario.AgregarUsaurio(usuario);
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
                 return View();
             }
-            else
-            {
-                Session["Usuario"] = usuarioLogueado;
-                return RedirectToAction("Logueado");
-            }
-            
         }
-        public ActionResult Logueado()
+
+        // GET: Usuario/Edit/5
+        public ActionResult Edit(int id)
         {
-            var usuarioLogueado = (Entidades.Usuario)Session["Usuario"];
-            return View(usuarioLogueado);
+            return View(RNUsuario.Buscar(id));
+        }
+
+        // POST: Usuario/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, Usuario usuario)
+        {
+            try
+            {
+                // TODO: Add update logic here
+
+                RNUsuario.Editar(usuario);
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Usuario/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: Usuario/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, Usuario usuario)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+                RNUsuario.Eliminar(id);
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }
