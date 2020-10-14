@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Usuario</h4>
         <hr />
@@ -58,6 +58,11 @@
                 </div>
             </div>
         </div>
+
+        @{ 
+            string path = "../../Imagenes/"+Model.Id+"/Caratula.jpg";
+        }
+        <img src="@path" />
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

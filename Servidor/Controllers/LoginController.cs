@@ -1,57 +1,65 @@
-﻿using Servidor.Models;
+﻿using Servidor.Entidades;
+using Servidor.Models;
+using Servidor.Reglas;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace Servidor.Controllers
 {
-
     public class LoginController : Controller
     {
-        public static List<Usuario> lista = new List<Usuario>();
-
         // GET: Login
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult Login(string Nombre)
+        [HttpPost]
+        public ActionResult Index(UsuarioLogin usuario)
         {
-            Usuario usuarioNuevo = new Usuario();
-            usuarioNuevo.Nombre = Nombre;
-            usuarioNuevo.Mensajes.Add("Esto es una preba! para " + Nombre);
-            LoginController.lista.Add(usuarioNuevo);
-            Session["UsuarioLogueado"] = usuarioNuevo;
-            return RedirectToAction("Logueados");
-        }
-        public ActionResult Logueados()
-        {
-            //ViewBag
-            //ViewData
-            
-            ViewBag.UsuarioLogueador = Session["UsuarioLogueado"];
-            ViewBag.Usuarios = LoginController.lista;
+            var usuarioActivo = RNUsuario.ObtenerUsuarioActivo(usuario.Nombre, usuario.Password);
+            if (usuarioActivo == null)
+            {
+                //No se loguea
+                ViewBag.Error = "Usuario incorrecto o inactivo.";
+            }
+            else
+            {
+                Session["Usuario"] = usuarioActivo;
+                return View();
+            }
             return View();
         }
-
-        public ActionResult EnviarMensaje(string Mensaje, string UsuarioSeleccionado)
+        public ActionResult UploadImagen(HttpPostedFileBase file)
         {
-            var usuaarioAQuienMandoMensaje = 
-                LoginController.lista.Where(o => o.Nombre == UsuarioSeleccionado).FirstOrDefault();
-
-            foreach (Usuario usuario in LoginController.lista)
-            {
-                if (usuario.Nombre == UsuarioSeleccionado)
+            if (file != null && file.ContentLength > 0)
+                try
                 {
-                }
-            }
+                    string directorio = Path.Combine(Server.MapPath("~/Imagenes/" +
+                        ((Usuario)Session["Usuario"]).Id + "/"));
+                    DirectoryInfo di = new DirectoryInfo(directorio);
+                    if (!di.Exists)
+                        di.Create();
 
-            usuaarioAQuienMandoMensaje.Mensajes.Add(Mensaje);
-            
-            return RedirectToAction("Logueados");
+                    string path = Path.Combine(Server.MapPath("~/Imagenes/" + 
+                        ((Usuario)Session["Usuario"]).Id + "/" ),
+                                               Path.GetFileName("Caratula.jpg"));
+
+                    file.SaveAs(path);
+                    ViewBag.Message = "File uploaded successfully";
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
+            }
+            return View("Index");
         }
     }
 }

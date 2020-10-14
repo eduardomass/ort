@@ -1,3 +1,4 @@
+using Servidor.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,47 +15,24 @@ namespace Servidor
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            Reglas.RNUsuario.AgregarUsaurio(new Entidades.Usuario()
+            if (Reglas.RNUsuario.Buscar().Count == 0)
+            {
+                List<MedioDePago> listaMedioPago = new List<MedioDePago>();
+                listaMedioPago.Add(new MedioDePago()
                 {
-                Activo = true,
-                Password = "123",
-                NombreUsuario = "USUARIO",
-                Nombre = "Eduardo",
-                Apellido = "Mass"
-            }
+                    Descripcion = "VISA"
+                });
+                Reglas.RNUsuario.AgregarUsaurio(new Entidades.Usuario()
+                {
+                    Activo = true,
+                    Password = "123",
+                    NombreUsuario = "USUARIO",
+                    Nombre = "Eduardo",
+                    Apellido = "Mass",
+                    MediosDePago = listaMedioPago
+                }
                 );
-
-            Reglas.RNUsuario.AgregarUsaurio(new Entidades.Usuario()
-            {
-                Activo = true,
-                Password = "456",
-                NombreUsuario = "Carlos",
-                Nombre = "Carlos",
-                Apellido = "Tomada"
             }
-                );
-
-
-            Reglas.RNUsuario.AgregarUsaurio(new Entidades.Usuario()
-            {
-                Activo = true,
-                Password = "Pepe",
-                NombreUsuario = "Pepe",
-                Nombre = "Pepe",
-                Apellido = "Pepe"
-            }
-                );
-
-            Reglas.RNUsuario.AgregarUsaurio(new Entidades.Usuario()
-            {
-                Activo = true,
-                Password = "Pepe",
-                NombreUsuario = "Pepe",
-                Nombre = "Pepe",
-                Apellido = "Pepe"
-            }
-               );
-
         }
     }
 }

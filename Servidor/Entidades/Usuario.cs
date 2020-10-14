@@ -16,5 +16,7 @@ namespace Servidor.Entidades
         public string Password { get; set; }
         public bool Activo { get; set; }
 
+        public List<MedioDePago> MediosDePago { get; set; }
+
     }
 }
